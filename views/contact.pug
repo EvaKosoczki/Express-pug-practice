@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  form
+    .form-group
+      label(for='exampleFormControlInput1') Name
+      input#exampleFormControlInput1.form-control(type='text' placeholder='John Doe')
+    .form-group
+      label(for='exampleFormControlInput1') Email address
+      input#exampleFormControlInput1.form-control(type='email' placeholder='name@example.com')
+    .form-group
+      label(for='exampleFormControlTextarea1') Message
+      textarea#exampleFormControlTextarea1.form-control(rows='3')
+    button.btn.btn-primary Send
