@@ -28,7 +28,7 @@ module.exports = class DB {
 
     async read() {
         let sql = `SELECT 
-        p.id,p.name,p.stock,p.active,p.insdate, m.name AS manufacturer, m.contact AS contact	  
+        p.id,p.name,p.stock,p.active,p.insdate, m.name AS manufacturername, m.contact AS contact,p.price,m.id as manufacturerid	  
         FROM 
         products as p JOIN manufacturers as m ON 
         p.manufacturer=m.id`;
@@ -50,9 +50,19 @@ module.exports = class DB {
     async delete(id) {
         let sql = `
         DELETE FROM products WHERE id=${id}`
-        let result
+        let result = await this.conn.query(sql);
+        return result
     }
 
+    async update(data, id) {
+        let sql = `
+        UPDATE products
+        SET name='${data.name}',price=${data.price},stock=${data.stock},manufacturer=${data.manufacturer}
+        WHERE id=${id}
+        `;
+        let result = await this.conn.query(sql);
+        return result
+    }
 
 
 }

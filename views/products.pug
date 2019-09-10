@@ -9,7 +9,8 @@ block content
     .card(style='width: 18rem;')
       .card-body
         h5.card-title= val.name
-        p.card-text= val.manufacturer  
+        p.card-text= val.manufacturername  
         a.btn.btn-primary(href='#') Show
-        a.btn.btn-warning(href='/products/new' role='button') Delete
+        a.btn.btn-warning(href=`/products/delete/${val.id}` role='button') Delete
+        a.btn.btn-success(href=`/products/edit/${val.id}` role='button') Edit
 

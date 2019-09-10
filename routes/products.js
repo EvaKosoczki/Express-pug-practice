@@ -9,7 +9,6 @@ router.get('/', async (req, res, next) => {
   data = await dbsample.mockData();
 
   let realData = await dbsample.read();
-  console.log(realData[0])
 
   res.render('products', {
     titles: 'Products',
@@ -25,11 +24,32 @@ router.get('/new', (req, res, next) => {
 router.post('/', async (req, res, next) => {
   let result = await dbsample.create(req.body);
   res.json(result)
+  res.redirect('/')
 })
 
 router.get('/delete/:id', async (req, res, next) => {
   let id = req.params.id
-  dbsample.delete(id)
+  let result = await dbsample.delete(id)
+  res.json(result)
+  res.redirect('/')
 });
+
+router.get('/edit/:id', async (req, res, next) => {
+  let id = req.params.id;
+  let realData = await dbsample.read();
+  index = realData.findIndex(item =>
+    item.id == id
+  )
+  res.render('edit-product', {
+    title: 'Data',
+    data: realData
+  })
+});
+router.post('/edit/:id', async (req, res, next) => {
+  let id = req.params.id;
+  console.log(id)
+  let result = await dbsample.update(req.body, id);
+  res.json(result)
+})
 
 module.exports = router;
