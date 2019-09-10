@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var DB = require('../module/db')
+const dbsample = new DB();
 
 router.get('/', async (req, res, next) => {
-  let dbsample = new DB();
   let data = null;
 
   data = await dbsample.mockData();
