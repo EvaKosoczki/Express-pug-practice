@@ -10,6 +10,7 @@ const pool = mariadb.createPool({
 
 module.exports = class DB {
     constructor() {
+        pool.getConnection().then(conn => this.conn = conn)
 
     }
 
@@ -32,8 +33,7 @@ module.exports = class DB {
         products as p JOIN manufacturers as m ON 
         p.manufacturer=m.id`;
 
-        let conn = await pool.getConnection();
-        let result = await conn.query(sql);
+        let result = await this.conn.query(sql);
         return result
     }
 
