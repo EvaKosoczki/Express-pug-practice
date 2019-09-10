@@ -24,14 +24,14 @@ router.get('/new', (req, res, next) => {
 router.post('/', async (req, res, next) => {
   let result = await dbsample.create(req.body);
   res.json(result)
-  res.redirect('/')
+
 })
 
 router.get('/delete/:id', async (req, res, next) => {
   let id = req.params.id
   let result = await dbsample.delete(id)
   res.json(result)
-  res.redirect('/')
+
 });
 
 router.get('/edit/:id', async (req, res, next) => {
@@ -45,10 +45,11 @@ router.get('/edit/:id', async (req, res, next) => {
     data: realData
   })
 });
+
 router.post('/edit/:id', async (req, res, next) => {
-  let id = req.params.id;
-  console.log(id)
-  let result = await dbsample.update(req.body, id);
+  let id = req.params.id || 0;
+  console.log(id);
+  let result = await dbsample.update(id, req.body);
   res.json(result)
 })
 

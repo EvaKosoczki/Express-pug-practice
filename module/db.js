@@ -54,10 +54,10 @@ module.exports = class DB {
         return result
     }
 
-    async update(data, id) {
+    async update(id,data) {
         let sql = `
         UPDATE products
-        SET name='${data.name}',price=${data.price},stock=${data.stock},manufacturer=${data.manufacturer}
+        SET name='${data.name}',price=${data.price},stock=${data.stock},manufacturer=${data.manufacturer} 
         WHERE id=${id}
         `;
         let result = await this.conn.query(sql);

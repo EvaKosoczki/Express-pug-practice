@@ -1,7 +1,7 @@
 extends layout
 
 block content
-	form.form(action="/products/edit/id",method="post")
+	form.form(action=`/products/edit/${data[index].id}`,method="post")
 		.form-group
 			label(for='name') Name
 			input#name.form-control(type='text' aria-describedby='emailHelp' name="name" value=`${data[index].name}`)
