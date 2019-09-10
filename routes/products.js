@@ -6,11 +6,14 @@ router.get('/', async (req, res, next) => {
   let dbsample = new DB();
   let data = null;
 
-  data = await dbsample.mockData()
+  data = await dbsample.mockData();
+
+  let realData = await dbsample.read();
+  console.log(realData[0])
 
   res.render('products', {
-    titles: 'sth',
-    data: data
+    titles: 'Products',
+    data: realData
   })
 
 })

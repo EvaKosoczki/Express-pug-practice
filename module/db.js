@@ -1,5 +1,12 @@
 const path = require('path');
 const fs = require('fs');
+const mariadb = require('mariadb');
+const pool = mariadb.createPool({
+    database: 'shop',
+    user: 'root',
+    password: 'root',
+    connectionLimit: 5
+});
 
 module.exports = class DB {
     constructor() {
@@ -17,4 +24,20 @@ module.exports = class DB {
             });
         });
     }
-};
+
+    async read() {
+        let sql = `SELECT 
+        p.id,p.name,p.stock,p.active,p.insdate, m.name AS manufacturer, m.contact AS contact	  
+        FROM 
+        products as p JOIN manufacturers as m ON 
+        p.manufacturer=m.id`;
+
+        let conn = await pool.getConnection();
+        let result = await conn.query(sql);
+        return result
+    }
+
+
+
+
+}
