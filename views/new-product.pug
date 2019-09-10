@@ -1,0 +1,17 @@
+extends layout
+
+block content
+	form.form(action="/products",method="post")
+		.form-group
+			label(for='name') Name
+			input#name.form-control(type='text' aria-describedby='emailHelp' name="name")
+		.form-group
+			label(for='price') Price
+			input#price.form-control(type='number' name="price")
+		.form-group
+			label(for='stock') Stock
+			input#stock.form-control(type='number' name="stock")
+		.form-group
+			label(for='manufacturer') Manufacturer
+			input#manufacturer.form-control(type='text' name="manufacturer")
+			button.btn.btn-primary(type='submit') Submit

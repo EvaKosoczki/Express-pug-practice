@@ -16,6 +16,20 @@ router.get('/', async (req, res, next) => {
     data: realData
   })
 
+});
+
+router.get('/new', (req, res, next) => {
+  res.render('new-product')
 })
+
+router.post('/', async (req, res, next) => {
+  let result = await dbsample.create(req.body);
+  res.json(result)
+})
+
+router.get('/delete/:id', async (req, res, next) => {
+  let id = req.params.id
+  dbsample.delete(id)
+});
 
 module.exports = router;

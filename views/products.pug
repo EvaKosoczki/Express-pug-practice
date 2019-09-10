@@ -3,7 +3,7 @@ extends layout
 block content
 
 
-  
+  a.btn.btn-primary.btn-lg(href='/products/new' role='button') New Product
 
   each val in data
     .card(style='width: 18rem;')
@@ -11,4 +11,5 @@ block content
         h5.card-title= val.name
         p.card-text= val.manufacturer  
         a.btn.btn-primary(href='#') Show
+        a.btn.btn-warning(href='/products/new' role='button') Delete
 

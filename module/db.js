@@ -37,6 +37,21 @@ module.exports = class DB {
         return result
     }
 
+    async create(data) {
+        let sql = `
+        INSERT INTO products 
+        (name, price, stock, manufacturer,active)
+        VALUES ('${data.name}',${data.price},${data.stock},${data.manufacturer},1)
+        `;
+        let result = await this.conn.query(sql)
+        return result
+    }
+
+    async delete(id) {
+        let sql = `
+        DELETE FROM products WHERE id=${id}`
+        let result
+    }
 
 
 
