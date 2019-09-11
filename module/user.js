@@ -14,16 +14,14 @@ module.exports = class DB {
 
     }
 
-    mockData() {
-        return new Promise((resolve, reject) => {
-            let filePath = path.join(__dirname, 'products.json');
-            fs.readFile(filePath, 'utf8', (err, content) => {
-                if (err) {
-                    return reject(err);
-                }
-                resolve(JSON.parse(content));
-            });
-        });
+    async login(user) {
+        let sql = `
+        SELECT * from users 
+            where email='${user.email}'
+                and password=SHA1('${user.password}')  
+       `;
+        let result = await this.conn.query(sql)
+        return result;
     }
 
     async read() {
