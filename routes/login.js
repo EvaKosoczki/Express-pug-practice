@@ -12,7 +12,6 @@ const getToken = (l = 20) => {
   return result;
 }
 
-
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('login', {
@@ -23,7 +22,9 @@ router.get('/', function (req, res, next) {
 router.post('/', async (req, res, next) => {
   let result = await userDBSmp.login(req.body);
   if (result.length === 1) {
-    res.cookie('uuid', getToken())
+    cookie = getToken();
+    res.cookie('uuid', cookie);
+    await userDBSmp.saveToken(cookie, result);
     return res.redirect('/')
   }
   res.render('login', {

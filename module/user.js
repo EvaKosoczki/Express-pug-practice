@@ -31,6 +31,15 @@ module.exports = class DB {
         return result;
     }
 
+    async saveToken(token, user) {
+        let sql = `
+            update users 
+            set token='${token}' 
+            where id=${user[0].id} `;
+        let result = await this.conn.query(sql);
+        return result;
+
+    }
     async create(data) {
         let sql = `
         INSERT INTO users 
