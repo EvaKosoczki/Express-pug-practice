@@ -13,7 +13,14 @@ module.exports = class DB {
         pool.getConnection().then(conn => this.conn = conn)
 
     }
-
+    getToken(l = 20) {
+        let cookie = '';
+        for (let i = 0; i < l; i++) {
+            let index = Math.round(Math.random() * 50 + 65)
+            cookie += String.fromCharCode(index)
+            return cookie;
+        }
+    };
     async login(user) {
         let sql = `
         SELECT * from users 
@@ -24,43 +31,16 @@ module.exports = class DB {
         return result;
     }
 
-    async read() {
-        let sql = `SELECT 
-        p.id,p.name,p.stock,p.active,p.insdate, m.name AS manufacturername, m.contact AS contact,p.price,m.id as manufacturerid	  
-        FROM 
-        products as p JOIN manufacturers as m ON 
-        p.manufacturer=m.id`;
-
-        let result = await this.conn.query(sql);
-        return result
-    }
-
     async create(data) {
         let sql = `
-        INSERT INTO products 
-        (name, price, stock, manufacturer,active)
-        VALUES ('${data.name}',${data.price},${data.stock},${data.manufacturer},1)
+        INSERT INTO users 
+        (name,email,password,token)
+        VALUES ('${data.name}','${data.email}',SHA1('${data.password}'),'1')
         `;
         let result = await this.conn.query(sql)
         return result
     }
 
-    async delete(id) {
-        let sql = `
-        DELETE FROM products WHERE id=${id}`
-        let result = await this.conn.query(sql);
-        return result
-    }
-
-    async update(id, data) {
-        let sql = `
-        UPDATE products
-        SET name='${data.name}',price=${data.price},stock=${data.stock},manufacturer=${data.manufacturer} 
-        WHERE id=${id}
-        `;
-        let result = await this.conn.query(sql);
-        return result
-    }
 
 
 }

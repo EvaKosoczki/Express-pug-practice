@@ -48,7 +48,6 @@ router.get('/edit/:id', async (req, res, next) => {
 
 router.post('/edit/:id', async (req, res, next) => {
   let id = req.params.id || 0;
-  console.log(id);
   let result = await dbsample.update(id, req.body);
   res.json(result)
 })

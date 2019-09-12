@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    form(method="post" action="/login/registration")
+      .form-group
+        label(for="name") Name
+        input.form-control(type="text" placeholder="Name" name="name")
+      .form-group
+        label(for="email") Email address
+        input#exampleInputEmail1.form-control(type="email" name="email" placeholder="Enter email")
+      .form-group
+        label(for="password") Password
+        input.form-control(type="password" placeholder="Password" name="password")
+      button.btn.btn-primary(type="submit") Submit
+      
+    script(src="/javascripts/jquery.min.js")
+    script(src="/bootstrap/dist/js/bootstrap.min.js")
