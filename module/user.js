@@ -31,15 +31,26 @@ module.exports = class DB {
         return result;
     }
 
-    async saveToken(token, user) {
-        let sql = `
-            update users 
-            set token='${token}' 
-            where id=${user[0].id} `;
+    async checkLogin(req) {
+        if (!req.cookies.uuid) {
+            return false
+        }
+        let sql = `select * from users where token='${req.cookies.uuid}'`
+
         let result = await this.conn.query(sql);
-        return result;
+        return result[0];
 
     }
+    async setUserToken(id, token) {
+        let sql =
+            `
+            update users 
+            set token='${token}' 
+            where id=${id} `;
+        let result = await this.conn.query(sql)
+        return true
+    }
+
     async create(data) {
         let sql = `
         INSERT INTO users 

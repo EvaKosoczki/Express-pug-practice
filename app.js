@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const UserDB = require('./module/user')
+const userDB = new UserDB()
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -25,6 +27,19 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(async (req, res, next) => {
+  let user = await userDB.checkLogin(req)
+  if (user) {
+    req.user = user
+  }
+  next();
+})
+
+app.use("/logout", (req, res, next) => {
+  res.clearCookie('uuid');
+  res.redirect('/');
+})
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

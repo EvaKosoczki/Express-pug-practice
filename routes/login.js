@@ -22,9 +22,9 @@ router.get('/', function (req, res, next) {
 router.post('/', async (req, res, next) => {
   let result = await userDBSmp.login(req.body);
   if (result.length === 1) {
-    cookie = getToken();
-    res.cookie('uuid', cookie);
-    await userDBSmp.saveToken(cookie, result);
+    let token = getToken();
+    res.cookie('uuid', token);
+    await userDBSmp.setUserToken(result[0].id, token);
     return res.redirect('/')
   }
   res.render('login', {

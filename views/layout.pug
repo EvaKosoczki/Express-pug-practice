@@ -21,6 +21,15 @@ html
             a.nav-link(href="/about") About
           li.nav-item
             a.nav-link(href="/contact") Contact
+        ul.navbar-nav
+          if user
+            if user.id
+              li 
+                span #{user.name}
+                a.btn.btn-info(href="/logout") Logout
+            else
+              li
+                a.btn.btn-success(href="/login") Login
 
     .container
       block content
