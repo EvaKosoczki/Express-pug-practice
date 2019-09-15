@@ -4,9 +4,7 @@ var DB = require('../module/db')
 const dbsample = new DB();
 
 router.get('/', async (req, res, next) => {
-  let data = null;
-
-  data = await dbsample.mockData();
+  
 
   let realData = await dbsample.read();
 
